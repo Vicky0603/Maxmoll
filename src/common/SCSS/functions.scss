@@ -1,0 +1,54 @@
+
+
+// Функция для плавающих размеров и отступов 
+// $size - размер в пикселях
+// $unit - желаемыые ед. измерения
+
+@function floatingSize($size, $unit) {
+
+    @if ($unit == "vw") {
+      $k: $size / (1920 / 100);
+      
+      @return $k + $unit;
+  
+    } @else if ($unit == "vh") {
+      $k: $size / (1080 / 100);
+      
+      @return $k + $unit;
+  
+    }  
+}
+
+
+
+// $f-min - минимальное значение шрифта
+// $f-max - максимальное значение шрифта
+// $v-min - минимальное значение ширины экрана
+// $v-max - максимальное значение ширины экрана
+
+// @include fluidFontSize(16px, 26px, 480, 1920, $fallback"); объявление
+// $fallback - принимает значение оптимального размера шрифта, например 18px, для старых браузеров, которые не поддерживают vw
+
+
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+      @return $number / ($number * 0 + 1);
+    }
+  
+    @return $number;
+  }
+
+@function calcFontSize($f-min, $f-max, $v-min, $v-max, $units: px) {
+    $f-min: strip-unit($f-min);
+    $f-max: strip-unit($f-max);
+    $w-min: strip-unit($v-min);
+    $w-max: strip-unit($v-max);
+
+    $k: ($f-max - $f-min)/($v-max - $v-min);
+    $b: $f-min - $k * $v-min;
+  
+    $b: $b + $units;
+  
+    @return calc( #{$k} * 100vw + #{$b} );
+}
+  

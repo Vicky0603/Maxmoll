@@ -1,0 +1,17 @@
+
+:root {
+    box-sizing: border-box;
+    width: calc(100vw + 20px);
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit;
+}
+
+
+body {
+    font-family: 'ProximaNova', 'HouschkaPro', sans-serif;
+    
+}

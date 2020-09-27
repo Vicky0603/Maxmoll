@@ -1,0 +1,12 @@
+
+// Плавающий размер шрифта. Зависимость от ширины области просмотра.
+
+@mixin fluidFontSize($f-min, $f-max, $w-min, $w-max, $fallback: false) {
+    
+  font-size: calcFontSize($f-min, $f-max, $w-min, $w-max, px);
+
+  @media (min-width: $w-max + px) {
+    font-size: $f-max;
+  }
+
+}
